@@ -204,46 +204,30 @@
   </div>
 
   <script>
-    /***********************
-     * Embedded cascading data
-     * (District -> Block -> Panchayat -> School -> [Principals])
-     * This JSON was prepared from your uploaded Excel.
-     ***********************/
-    const cascade = JSON.parse(
-`// Global variable to hold cascade data
-let cascade = {};
+   let cascade = {};
 
-// Load JSON file from same repository
-fetch('cascade_data.json')
-  .then(response => response.json())
-  .then(data => {
-    cascade = data;
+    // Load cascade_data.json
+    fetch('cascade_data.json')
+      .then(response => response.json())
+      .then(data => {
+        cascade = data;
+        populateSelect(document.getElementById('district'), Object.keys(cascade).sort(), '-- Select District --');
+      })
+      .catch(error => console.error('Error loading cascade_data.json:', error));
 
-    // Districts load करें
-    populateSelect(
-      document.getElementById('district'),
-      Object.keys(cascade).sort(),
-      '-- Select District --'
-    );
-  })
-  .catch(error => {
-    console.error('Error loading cascade_data.json:', error);
-  });
-
-// Helper function to populate dropdown
-function populateSelect(selectEl, items, placeholder) {
-  selectEl.innerHTML = '';
-  const opt0 = document.createElement('option');
-  opt0.value = '';
-  opt0.textContent = placeholder || '-- Select --';
-  selectEl.appendChild(opt0);
-  items.forEach(it => {
-    const o = document.createElement('option');
-    o.value = it;
-    o.textContent = it;
-    selectEl.appendChild(o);
-  });
-}
+    function populateSelect(selectEl, items, placeholder) {
+      selectEl.innerHTML = '';
+      const opt0 = document.createElement('option');
+      opt0.value = '';
+      opt0.textContent = placeholder;
+      selectEl.appendChild(opt0);
+      items.forEach(it => {
+        const o = document.createElement('option');
+        o.value = it;
+        o.textContent = it;
+        selectEl.appendChild(o);
+      });
+    }
 
 // Event Listeners
 document.getElementById('district').addEventListener('change', function() {
@@ -450,4 +434,5 @@ document.getElementById('school').addEventListener('change', function() {
   </script>
 </body>
 </html>
+
 
