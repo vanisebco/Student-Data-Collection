@@ -210,7 +210,100 @@
      * This JSON was prepared from your uploaded Excel.
      ***********************/
     const cascade = JSON.parse(
-`/mnt/data/cascade_with_panchayat.json`
+`// Global variable to hold cascade data
+let cascade = {};
+
+// Load JSON file from same repository
+fetch('cascade_data.json')
+  .then(response => response.json())
+  .then(data => {
+    cascade = data;
+
+    // Districts load करें
+    populateSelect(
+      document.getElementById('district'),
+      Object.keys(cascade).sort(),
+      '-- Select District --'
+    );
+  })
+  .catch(error => {
+    console.error('Error loading cascade_data.json:', error);
+  });
+
+// Helper function to populate dropdown
+function populateSelect(selectEl, items, placeholder) {
+  selectEl.innerHTML = '';
+  const opt0 = document.createElement('option');
+  opt0.value = '';
+  opt0.textContent = placeholder || '-- Select --';
+  selectEl.appendChild(opt0);
+  items.forEach(it => {
+    const o = document.createElement('option');
+    o.value = it;
+    o.textContent = it;
+    selectEl.appendChild(o);
+  });
+}
+
+// Event Listeners
+document.getElementById('district').addEventListener('change', function() {
+  const blockEl = document.getElementById('block');
+  const panchayatEl = document.getElementById('panchayat');
+  const schoolEl = document.getElementById('school');
+  const teacherEl = document.getElementById('teacherName');
+
+  blockEl.innerHTML = '<option value="">-- Select Block --</option>';
+  panchayatEl.innerHTML = '<option value="">-- Select Panchayat --</option>';
+  schoolEl.innerHTML = '<option value="">-- Select School --</option>';
+  teacherEl.innerHTML = '<option value="">-- Select Teacher --</option>';
+
+  if (!this.value) return;
+  const blocks = Object.keys(cascade[this.value] || {}).sort();
+  populateSelect(blockEl, blocks, '-- Select Block --');
+});
+
+document.getElementById('block').addEventListener('change', function() {
+  const district = document.getElementById('district').value;
+  const panchayatEl = document.getElementById('panchayat');
+  const schoolEl = document.getElementById('school');
+  const teacherEl = document.getElementById('teacherName');
+
+  panchayatEl.innerHTML = '<option value="">-- Select Panchayat --</option>';
+  schoolEl.innerHTML = '<option value="">-- Select School --</option>';
+  teacherEl.innerHTML = '<option value="">-- Select Teacher --</option>';
+
+  if (!district || !this.value) return;
+  const panchayats = Object.keys(cascade[district][this.value] || {}).sort();
+  populateSelect(panchayatEl, panchayats, '-- Select Panchayat --');
+});
+
+document.getElementById('panchayat').addEventListener('change', function() {
+  const district = document.getElementById('district').value;
+  const block = document.getElementById('block').value;
+  const schoolEl = document.getElementById('school');
+  const teacherEl = document.getElementById('teacherName');
+
+  schoolEl.innerHTML = '<option value="">-- Select School --</option>';
+  teacherEl.innerHTML = '<option value="">-- Select Teacher --</option>';
+
+  if (!district || !block || !this.value) return;
+  const schools = Object.keys(cascade[district][block][this.value] || {}).sort();
+  populateSelect(schoolEl, schools, '-- Select School --');
+});
+
+document.getElementById('school').addEventListener('change', function() {
+  const district = document.getElementById('district').value;
+  const block = document.getElementById('block').value;
+  const panchayat = document.getElementById('panchayat').value;
+  const teacherEl = document.getElementById('teacherName');
+
+  teacherEl.innerHTML = '<option value="">-- Select Teacher --</option>';
+
+  if (!district || !block || !panchayat || !this.value) return;
+  const principals = cascade[district][block][panchayat][this.value] || [];
+  populateSelect(teacherEl, principals, '-- Select Teacher --');
+});
+`
     );
 
     // UI elements
@@ -357,3 +450,4 @@
   </script>
 </body>
 </html>
+
