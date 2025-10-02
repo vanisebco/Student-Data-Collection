@@ -37,7 +37,7 @@
 यदि आपका कॉमिक बुक/डिजिटल कॉमिक्स पर कुछ फ़ीडबैक हो तो भी आप इसमें हमारे साथ साझा कर सकते हैं जो कार्यक्रम को प्रभावी बनाने में मदद करेंगे।
     </p>
 
-    <form id="mainForm" action="YOUR_WEB_APP_URL_HERE" method="POST" target="hidden_iframe">
+    <form id="mainForm">
       <!-- 1 -->
       <label for="date">1. Date</label>
       <input type="date" id="date" name="Date" required />
@@ -244,71 +244,55 @@
     populateSelect(t, cascade[d][b][p][this.value] || [], '-- Select Teacher --');
   });
   </script>
-<script>
-  // Your Web App URL
-  const WEB_APP_URL = "https://script.google.com/macros/u/1/s/AKfycbxyJix5mTG8CO5EwKcJYxxowApNjzY_Ig2Tbx8NUkNBrBnVnf4kYKe6pBuGyD7JK8wdnw/exec";  // Paste your latest deployment URL
-
+  <script>
   document.getElementById("submitBtn").addEventListener("click", function () {
     const form = document.getElementById("mainForm");
-    const submitBtn = document.getElementById("submitBtn");
+    
+    if (!form.checkValidity()) {
+      form.reportValidity();
+      return;
+    }
+
+    const formData = new FormData(form);
+    const iframe = document.getElementById("hidden_iframe");
     const successBox = document.getElementById("successBox");
     const errorBox = document.getElementById("errorBox");
-
-    // Disable button during submission
-    submitBtn.disabled = true;
-    submitBtn.textContent = "Submitting...";
+    
     successBox.style.display = "none";
     errorBox.style.display = "none";
 
-    const formData = new FormData(form);
-    const json = {};
-    
+    // Submit via iframe
+    const tempForm = document.createElement('form');
+    tempForm.action = "https://script.google.com/macros/s/AKfycbyG_dXVPoscrQiCnbIEBLjf8Gr4MaziXWPRC1rZxVTLwsVe3kEzG30fvp4LvauLDERwKQ/exec";  // Replace with your new URL
+    tempForm.method = 'POST';
+    tempForm.target = 'hidden_iframe';
+    tempForm.style.display = 'none';
+
     formData.forEach((value, key) => {
-      if (json[key]) {
-        if (!Array.isArray(json[key])) json[key] = [json[key]];
-        json[key].push(value);
-      } else {
-        json[key] = value;
-      }
+      const input = document.createElement('input');
+      input.name = key;
+      input.value = value;
+      tempForm.appendChild(input);
     });
 
-    fetch(WEB_APP_URL, {
-      redirect: "follow",
-      method: "POST",
-      body: JSON.stringify(json),
-      headers: {
-        "Content-Type": "text/plain;charset=utf-8",
-      },
-    })
-      .then((response) => response.json())
-      .then((data) => {
-        submitBtn.disabled = false;
-        submitBtn.textContent = "Submit";
-        
-        if (data.status === "OK") {
-          successBox.style.display = "block";
-          form.reset();
-        } else {
-          errorBox.style.display = "block";
-          errorBox.textContent = "Error: " + (data.message || "Unknown error");
-        }
-      })
-      .catch((error) => {
-        submitBtn.disabled = false;
-        submitBtn.textContent = "Submit";
-        errorBox.style.display = "block";
-        errorBox.textContent = "Failed to fetch: " + error.message;
-        console.error("Error:", error);
-      });
+    document.body.appendChild(tempForm);
+    tempForm.submit();
+    
+    setTimeout(() => {
+      successBox.style.display = "block";
+      form.reset();
+      document.body.removeChild(tempForm);
+    }, 1500);
   });
 
   document.getElementById("resetBtn").addEventListener("click", function () {
     document.getElementById("mainForm").reset();
   });
 </script>
-<iframe name="hidden_iframe" style="display:none;"></iframe>
+<iframe id="hidden_iframe" name="hidden_iframe" style="display:none;"></iframe>
 </body>
 </html>
+
 
 
 
