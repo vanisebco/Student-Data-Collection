@@ -37,7 +37,7 @@
 यदि आपका कॉमिक बुक/डिजिटल कॉमिक्स पर कुछ फ़ीडबैक हो तो भी आप इसमें हमारे साथ साझा कर सकते हैं जो कार्यक्रम को प्रभावी बनाने में मदद करेंगे।
     </p>
 
-    <form id="mainForm">
+    <form id="mainForm" action="YOUR_WEB_APP_URL_HERE" method="POST" target="hidden_iframe">
       <!-- 1 -->
       <label for="date">1. Date</label>
       <input type="date" id="date" name="Date" required />
@@ -306,9 +306,10 @@
     document.getElementById("mainForm").reset();
   });
 </script>
-
+<iframe name="hidden_iframe" style="display:none;"></iframe>
 </body>
 </html>
+
 
 
 
