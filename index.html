@@ -37,7 +37,7 @@
 यदि आपका कॉमिक बुक/डिजिटल कॉमिक्स पर कुछ फ़ीडबैक हो तो भी आप इसमें हमारे साथ साझा कर सकते हैं जो कार्यक्रम को प्रभावी बनाने में मदद करेंगे।
     </p>
 
-    <form id="mainForm">
+   <form id="mainForm" action="https://script.google.com/macros/s/AKfycbxcNMoXuNuPFF-aFcnr6wF-F3yy0vxO9JLt72b_2dTpzUe33fAJ9ebpYYjbR0y7vtJH2Q/exec" method="POST" target="hidden_iframe" onsubmit="formSubmitted();">
       <!-- 1 -->
       <label for="date">1. Date</label>
       <input type="date" id="date" name="Date" required />
@@ -244,54 +244,36 @@
     populateSelect(t, cascade[d][b][p][this.value] || [], '-- Select Teacher --');
   });
   </script>
-  <script>
-  document.getElementById("submitBtn").addEventListener("click", function () {
+<script>
+  function formSubmitted() {
+    document.getElementById("successBox").style.display = "block";
+    document.getElementById("errorBox").style.display = "none";
+    setTimeout(function() {
+      document.getElementById("mainForm").reset();
+    }, 1000);
+  }
+
+  // Remove the JavaScript submit - let the form submit naturally
+  document.getElementById("submitBtn").onclick = function() {
     const form = document.getElementById("mainForm");
-    
-    if (!form.checkValidity()) {
+    if (form.checkValidity()) {
+      form.submit();
+    } else {
       form.reportValidity();
-      return;
     }
-
-    const formData = new FormData(form);
-    const iframe = document.getElementById("hidden_iframe");
-    const successBox = document.getElementById("successBox");
-    const errorBox = document.getElementById("errorBox");
-    
-    successBox.style.display = "none";
-    errorBox.style.display = "none";
-
-    // Submit via iframe
-    const tempForm = document.createElement('form');
-    tempForm.action = "https://script.google.com/macros/s/AKfycbyG_dXVPoscrQiCnbIEBLjf8Gr4MaziXWPRC1rZxVTLwsVe3kEzG30fvp4LvauLDERwKQ/exec";  // Replace with your new URL
-    tempForm.method = 'POST';
-    tempForm.target = 'hidden_iframe';
-    tempForm.style.display = 'none';
-
-    formData.forEach((value, key) => {
-      const input = document.createElement('input');
-      input.name = key;
-      input.value = value;
-      tempForm.appendChild(input);
-    });
-
-    document.body.appendChild(tempForm);
-    tempForm.submit();
-    
-    setTimeout(() => {
-      successBox.style.display = "block";
-      form.reset();
-      document.body.removeChild(tempForm);
-    }, 1500);
-  });
+    return false;
+  };
 
   document.getElementById("resetBtn").addEventListener("click", function () {
     document.getElementById("mainForm").reset();
+    document.getElementById("successBox").style.display = "none";
+    document.getElementById("errorBox").style.display = "none";
   });
 </script>
 <iframe id="hidden_iframe" name="hidden_iframe" style="display:none;"></iframe>
 </body>
 </html>
+
 
 
 
