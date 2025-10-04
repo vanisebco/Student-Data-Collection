@@ -20,7 +20,8 @@
     button { padding:10px 14px; border-radius:6px; border:0; cursor:pointer; font-weight:600; }
     button.primary { background:#1f6feb; color:white; }
     button.secondary { background:#e6eefc; color:#1f6feb; }
-    .success { background:#e6ffef; padding:15px; border-radius:6px; margin-top:12px; color:#06643a; display:none; font-size:16px; font-weight:600; }
+    button:disabled { opacity: 0.6; cursor: not-allowed; }
+    .success { background:#e6ffef; padding:15px; border-radius:6px; margin-top:12px; color:#06643a; display:none; font-size:16px; font-weight:600; text-align:center; }
     .error { background:#fff1f0; padding:10px; border-radius:6px; margin-top:12px; color:#8b0f0f; display:none; }
     .inline { display:inline-block; margin-right:12px; }
     .checkbox-list label, .radio-list label { font-weight:500; display:block; margin-top:6px; }
@@ -83,7 +84,7 @@
       <label for="teacherName">8. Name of Teacher</label>
       <input type="text" id="teacherName" name="TeacherName" class="uppercase" placeholder="Enter Teacher (Principal) Name" required>
 
-      <!-- 9 (added) -->
+      <!-- 9 -->
       <label>9. Gender of Teacher</label>
       <label class="inline"><input type="radio" name="TeacherGender" value="Male" required> Male</label>
       <label class="inline"><input type="radio" name="TeacherGender" value="Female"> Female</label>
@@ -102,17 +103,15 @@
         <label class="inline"><input type="checkbox" name="ClassTaught" value="कक्षा 10" /> कक्षा 10</label>
       </div>
 
-      <!-- 12–29 -->
+      <!-- 12–35 -->
       <label>12. कॉमिक बुक/डिजिटल कॉमिक आधारित गतिविधियों का संचालन किया गया?</label>
       <label><input type="radio" name="ActivitiesConducted" value="हाँ" required /> हाँ</label>
       <label><input type="radio" name="ActivitiesConducted" value="नहीं" /> नहीं</label>
 
-      <!-- 13 (added) -->
       <label>13. क्या आपने Face-to-Face प्रशिक्षण किया गया?</label>
       <label><input type="radio" name="FaceToFaceTraining" value="हाँ" /> हाँ</label>
       <label><input type="radio" name="FaceToFaceTraining" value="नहीं" /> नहीं</label>
 
-      <!-- 14 (added) -->
       <label>14. क्या आपने Online course लिया गया?</label>
       <label><input type="radio" name="OnlineCourseTaken" value="हाँ" /> हाँ</label>
       <label><input type="radio" name="OnlineCourseTaken" value="नहीं" /> नहीं</label>
@@ -263,13 +262,39 @@
   teacherInput.addEventListener('input', function(){ this.value = this.value.toUpperCase(); });
   teacherInput.addEventListener('blur', function(){ this.value = this.value.toUpperCase().trim(); });
 
-  // FIXED: Form submission handling
+  // Form submission handling
   const form = document.getElementById('mainForm');
   const submitBtn = document.getElementById('submitBtn');
   const resetBtn = document.getElementById('resetBtn');
   const successBox = document.getElementById('successBox');
   const errorBox = document.getElementById('errorBox');
   const hiddenIframe = document.getElementById('hidden_iframe');
+  
+  let formSubmitted = false;
+
+  // Setup iframe listener BEFORE any form submission
+  hiddenIframe.onload = function() {
+    // Only show success if we actually submitted the form
+    if (formSubmitted) {
+      console.log('Form submitted successfully!');
+      
+      // Show success message
+      successBox.style.display = 'block';
+      errorBox.style.display = 'none';
+      
+      // Re-enable submit button
+      submitBtn.disabled = false;
+      submitBtn.textContent = 'Submit';
+      form.classList.remove('submitting');
+      
+      // Reset form after 3 seconds
+      setTimeout(function() {
+        form.reset();
+        successBox.style.display = 'none';
+        formSubmitted = false;
+      }, 3000);
+    }
+  };
 
   // Submit button handler
   submitBtn.addEventListener('click', function() {
@@ -278,6 +303,9 @@
       successBox.style.display = 'none';
       errorBox.style.display = 'none';
       
+      // Mark that we're submitting
+      formSubmitted = true;
+      
       // Disable submit button to prevent double submission
       submitBtn.disabled = true;
       submitBtn.textContent = 'Submitting...';
@@ -285,6 +313,18 @@
       
       // Submit the form
       form.submit();
+      
+      // Safety timeout - if iframe doesn't load in 10 seconds, reset
+      setTimeout(function() {
+        if (submitBtn.disabled) {
+          submitBtn.disabled = false;
+          submitBtn.textContent = 'Submit';
+          form.classList.remove('submitting');
+          errorBox.textContent = 'Submission timeout. Please try again.';
+          errorBox.style.display = 'block';
+          formSubmitted = false;
+        }
+      }, 10000);
     } else {
       form.reportValidity();
     }
@@ -298,32 +338,7 @@
     submitBtn.disabled = false;
     submitBtn.textContent = 'Submit';
     form.classList.remove('submitting');
-  });
-
-  // Listen for iframe load (server response)
-  let iframeLoadCount = 0;
-  hiddenIframe.addEventListener('load', function() {
-    iframeLoadCount++;
-    
-    // Ignore the first load (when iframe is initially created)
-    if (iframeLoadCount === 1) {
-      return;
-    }
-    
-    // Show success message after form submission completes
-    successBox.style.display = 'block';
-    errorBox.style.display = 'none';
-    
-    // Re-enable submit button
-    submitBtn.disabled = false;
-    submitBtn.textContent = 'Submit';
-    form.classList.remove('submitting');
-    
-    // Reset form after 2 seconds
-    setTimeout(function() {
-      form.reset();
-      successBox.style.display = 'none';
-    }, 2000);
+    formSubmitted = false;
   });
   </script>
 </body>
