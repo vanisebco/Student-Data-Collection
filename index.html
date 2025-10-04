@@ -270,6 +270,10 @@
     if (!d || !b || !p || !this.value) return;
     populateSelect(t, cascade[d][b][p][this.value] || [], '-- Select Teacher --');
   });
+     // Make teacher input uppercase as user types (and also normalize on blur)
+  const teacherInput = document.getElementById('teacherName');
+  teacherInput.addEventListener('input', function(){ this.value = this.value.toUpperCase(); });
+  teacherInput.addEventListener('blur', function(){ this.value = this.value.toUpperCase().trim(); });
   </script>
 <script>
   function formSubmitted() {
@@ -302,5 +306,6 @@
 </html>
 
                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                              <!DOCTYPE html>
+
 
 
