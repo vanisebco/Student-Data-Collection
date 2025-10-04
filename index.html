@@ -268,7 +268,6 @@
     const t = document.getElementById('teacherName');
     t.innerHTML = '<option value="">-- Select Teacher --</option>';
     if (!d || !b || !p || !this.value) return;
-    populateSelect(t, cascade[d][b][p][this.value] || [], '-- Select Teacher --');
   });
      // Make teacher input uppercase as user types (and also normalize on blur)
   const teacherInput = document.getElementById('teacherName');
@@ -306,6 +305,7 @@
 </html>
 
                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                              <!DOCTYPE html>
+
 
 
 
