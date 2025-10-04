@@ -275,63 +275,66 @@
   teacherInput.addEventListener('blur', function(){ this.value = this.value.toUpperCase().trim(); });
   </script>
 <script>
+  // Called on form submit (this is what onsubmit="formSubmitted()" will call)
   function formSubmitted() {
-    // New submit handler: triggers the real submit event (fires onsubmit) and uses iframe load to show success
-document.getElementById("submitBtn").onclick = function() {
-  const form = document.getElementById("mainForm");
-  if (form.checkValidity()) {
-    // prefer requestSubmit which fires the submit event and runs the onsubmit handler
-    if (typeof form.requestSubmit === 'function') {
-      form.requestSubmit();
-    } else {
-      // fallback for older browsers
-      form.dispatchEvent(new Event('submit', { cancelable: true, bubbles: true }));
-    }
-  } else {
-    form.reportValidity();
-  }
-  return false;
-};
-
-// Reset button behavior (keep resetting and hide messages)
-document.getElementById("resetBtn").addEventListener("click", function () {
-  document.getElementById("mainForm").reset();
-  document.getElementById("successBox").style.display = "none";
-  document.getElementById("errorBox").style.display = "none";
-});
-
-// Show success only after server response loads in the hidden iframe
-const hidden = document.getElementById('hidden_iframe');
-if (hidden) {
-  // ignore the very first blank load by tracking a flag if needed
-  let firstLoadIgnored = false;
-  hidden.addEventListener('load', function() {
-    // Some browsers fire an initial load when iframe is created; ignore the first empty load
-    if (!firstLoadIgnored) { firstLoadIgnored = true; return; }
-
-    // when iframe finishes loading after a submit, show success and clear errors
+    // Immediate feedback (optional). Final success shown after iframe loads.
     document.getElementById("successBox").style.display = "block";
     document.getElementById("errorBox").style.display = "none";
+  }
 
-    // reset the form after a short delay so user sees success
-    setTimeout(function() {
-      document.getElementById("mainForm").reset();
-    }, 1200);
-  });
-}
+  // Wire handlers immediately when the page loads
+  (function wireHandlers() {
+    // Submit button: trigger a real submit event (fires onsubmit)
+    const submitBtn = document.getElementById("submitBtn");
+    if (submitBtn) {
+      submitBtn.onclick = function() {
+        const form = document.getElementById("mainForm");
+        if (form.checkValidity()) {
+          if (typeof form.requestSubmit === 'function') {
+            form.requestSubmit(); // modern browsers: triggers onsubmit
+          } else {
+            // fallback: dispatch submit event
+            form.dispatchEvent(new Event('submit', { cancelable: true, bubbles: true }));
+          }
+        } else {
+          form.reportValidity();
+        }
+        return false;
+      };
+    }
 
+    // Reset button handler
+    const resetBtn = document.getElementById("resetBtn");
+    if (resetBtn) {
+      resetBtn.addEventListener("click", function () {
+        document.getElementById("mainForm").reset();
+        document.getElementById("successBox").style.display = "none";
+        document.getElementById("errorBox").style.display = "none";
+      });
+    }
 
-  document.getElementById("resetBtn").addEventListener("click", function () {
-    document.getElementById("mainForm").reset();
-    document.getElementById("successBox").style.display = "none";
-    document.getElementById("errorBox").style.display = "none";
-  });
+    // Show success only after server response loads in the hidden iframe
+    const hidden = document.getElementById('hidden_iframe');
+    if (hidden) {
+      // Many browsers fire an initial 'load' when the iframe is created; ignore that first one.
+      let firstLoadIgnored = false;
+      hidden.addEventListener('load', function() {
+        if (!firstLoadIgnored) { firstLoadIgnored = true; return; }
+        // The iframe has loaded a response from the server — show success and reset
+        document.getElementById("successBox").style.display = "block";
+        document.getElementById("errorBox").style.display = "none";
+        setTimeout(function() { document.getElementById("mainForm").reset(); }, 1200);
+      });
+    }
+  })();
 </script>
+
 <iframe id="hidden_iframe" name="hidden_iframe" style="display:none;"></iframe>
 </body>
 </html>
 
                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                              <!DOCTYPE html>
+
 
 
 
