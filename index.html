@@ -80,14 +80,19 @@
 
       <!-- 8 -->
       <label for="teacherName">8. Name of Teacher</label>
-      <input type="text" id="teacherName" name="TeacherName" placeholder="Enter Teacher (Principal) Name" required>
+      <input type="text" id="teacherName" name="TeacherName" class="uppercase" placeholder="Enter Teacher (Principal) Name" required>
 
-      <!-- 9 -->
-      <label for="mobile">9. Mobile Number</label>
-      <input type="tel" id="mobile" name="MobileNumber" placeholder="10 digit mobile number" pattern="[0-9]{10}" maxlength="10" required />
+      <!-- 9 (added) -->
+      <label>9. Gender of Teacher</label>
+      <label class="inline"><input type="radio" name="TeacherGender" value="Male" required> Male</label>
+      <label class="inline"><input type="radio" name="TeacherGender" value="Female"> Female</label>
 
       <!-- 10 -->
-      <label>10. कक्षा जिसमे आप शिक्षण कराते हैं?</label>
+      <label for="mobile">10. Mobile Number</label>
+      <input type="tel" id="mobile" name="MobileNumber" placeholder="10 digit mobile number" pattern="[0-9]{10}" maxlength="10" required />
+
+      <!-- 11 -->
+      <label>11. कक्षा जिसमे आप शिक्षण कराते हैं?</label>
       <div>
         <label class="inline"><input type="checkbox" name="ClassTaught" value="कक्षा 6" /> कक्षा 6</label>
         <label class="inline"><input type="checkbox" name="ClassTaught" value="कक्षा 7" /> कक्षा 7</label>
@@ -96,71 +101,81 @@
         <label class="inline"><input type="checkbox" name="ClassTaught" value="कक्षा 10" /> कक्षा 10</label>
       </div>
 
-      <!-- 11–29 -->
-      <label>11. कॉमिक बुक/डिजिटल कॉमिक आधारित गतिविधियों का संचालन किया गया?</label>
+      <!-- 12–29 -->
+      <label>12. कॉमिक बुक/डिजिटल कॉमिक आधारित गतिविधियों का संचालन किया गया?</label>
       <label><input type="radio" name="ActivitiesConducted" value="हाँ" required /> हाँ</label>
       <label><input type="radio" name="ActivitiesConducted" value="नहीं" /> नहीं</label>
 
-      <label>12. कक्षा 6 के साथ कॉमिक बुक्स/डिजिटल कॉमिक्स पर कार्य किया गया?</label>
+      <!-- 13 (added) -->
+      <label>13. क्या आपने Face-to-Face प्रशिक्षण किया गया?</label>
+      <label><input type="radio" name="FaceToFaceTraining" value="हाँ" /> हाँ</label>
+      <label><input type="radio" name="FaceToFaceTraining" value="नहीं" /> नहीं</label>
+
+      <!-- 14 (added) -->
+      <label>14. क्या आपने Online course लिया गया?</label>
+      <label><input type="radio" name="OnlineCourseTaken" value="हाँ" /> हाँ</label>
+      <label><input type="radio" name="OnlineCourseTaken" value="नहीं" /> नहीं</label>
+     
+      <label>15. कक्षा 6 के साथ कॉमिक बुक्स/डिजिटल कॉमिक्स पर कार्य किया गया?</label>
       <label><input type="radio" name="Class6Worked" value="हाँ" required /> हाँ</label>
       <label><input type="radio" name="Class6Worked" value="नहीं" /> नहीं</label>
 
-      <label>13. कक्षा 7 के साथ कॉमिक बुक्स/डिजिटल कॉमिक्स पर कार्य किया गया?</label>
+      <label>16. कक्षा 7 के साथ कॉमिक बुक्स/डिजिटल कॉमिक्स पर कार्य किया गया?</label>
       <label><input type="radio" name="Class7Worked" value="हाँ" required /> हाँ</label>
       <label><input type="radio" name="Class7Worked" value="नहीं" /> नहीं</label>
 
-      <label>14. कक्षा 8 के साथ कॉमिक बुक्स/डिजिटल कॉमिक्स पर कार्य किया गया?</label>
+      <label>17. कक्षा 8 के साथ कॉमिक बुक्स/डिजिटल कॉमिक्स पर कार्य किया गया?</label>
       <label><input type="radio" name="Class8Worked" value="हाँ" required /> हाँ</label>
       <label><input type="radio" name="Class8Worked" value="नहीं" /> नहीं</label>
 
-      <label>15. "खजाने का नक्शा" पर काम किया गया?</label>
+      <label>18. "खजाने का नक्शा" पर काम किया गया?</label>
       <label><input type="radio" name="KhazaneKaNaksha" value="हाँ" /> हाँ</label>
       <label><input type="radio" name="KhazaneKaNaksha" value="नहीं" /> नहीं</label>
 
-      <label>16. "बदलीपुर के चीते" पर काम किया गया?</label>
+      <label>19. "बदलीपुर के चीते" पर काम किया गया?</label>
       <label><input type="radio" name="BadlipurKeCheete" value="हाँ" /> हाँ</label>
       <label><input type="radio" name="BadlipurKeCheete" value="नहीं" /> नहीं</label>
 
-      <label>17. "फिल्मस्टार का अपहरण" पर काम किया गया?</label>
+      <label>20. "फिल्मस्टार का अपहरण" पर काम किया गया?</label>
       <label><input type="radio" name="FilmstarApharan" value="हाँ" /> हाँ</label>
       <label><input type="radio" name="FilmstarApharan" value="नहीं" /> नहीं</label>
 
-      <label>18. "गायब हाथी" पर काम किया गया?</label>
+      <label>21. "गायब हाथी" पर काम किया गया?</label>
       <label><input type="radio" name="GayabHati" value="हाँ" /> हाँ</label>
       <label><input type="radio" name="GayabHati" value="नहीं" /> नहीं</label>
 
-      <label>19. "खतरे में बदलीपुर" पर काम किया गया?</label>
+      <label>22. "खतरे में बदलीपुर" पर काम किया गया?</label>
       <label><input type="radio" name="KhatreMeinBadlipur" value="हाँ" /> हाँ</label>
       <label><input type="radio" name="KhatreMeinBadlipur" value="नहीं" /> नहीं</label>
 
-      <label>20. "बोलती चट्टान" पर काम किया गया?</label>
+      <label>23. "बोलती चट्टान" पर काम किया गया?</label>
       <label><input type="radio" name="BoltiChattan" value="हाँ" /> हाँ</label>
       <label><input type="radio" name="BoltiChattan" value="नहीं" /> नहीं</label>
 
-      <label>21. "परीक्षा का तनाव" पर काम किया गया?</label>
+      <label>24. "परीक्षा का तनाव" पर काम किया गया?</label>
       <label><input type="radio" name="Parikshakatanaav" value="हाँ" /> हाँ</label>
       <label><input type="radio" name="Parikshakatanaav" value="नहीं" /> नहीं</label>
 
-       <label>22. "नशामुक्त बदलीपुर" पर काम किया गया?</label>
+       <label>25. "नशामुक्त बदलीपुर" पर काम किया गया?</label>
       <label><input type="radio" name="Nashamukt Badlipur" value="हाँ" /> हाँ</label>
       <label><input type="radio" name="Nashamukt Badlipur" value="नहीं" /> नहीं</label>
 
-      <label>23. "स्क्रीन की स्क्रीनिंग" पर काम किया गया?</label>
+      <label>26. "स्क्रीन की स्क्रीनिंग" पर काम किया गया?</label>
       <label><input type="radio" name="Screenkiscreening" value="हाँ" /> हाँ</label>
       <label><input type="radio" name="Screenkiscreening" value="नहीं" /> नहीं</label>
 
-      <label>24. कक्षा 6 में लड़कों की संख्या</label><input type="number" name="Class6_Boys" min="0" />
-      <label>25. कक्षा 6 में लड़कियों की संख्या</label><input type="number" name="Class6_Girls" min="0" />
-      <label>26. कक्षा 7 में लड़कों की संख्या</label><input type="number" name="Class7_Boys" min="0" />
-      <label>27. कक्षा 7 में लड़कियों की संख्या</label><input type="number" name="Class7_Girls" min="0" />
-      <label>28. कक्षा 8 में लड़कों की संख्या</label><input type="number" name="Class8_Boys" min="0" />
-      <label>29. कक्षा 8 में लड़कियों की संख्या</label><input type="number" name="Class8_Girls" min="0" />
+      <label>27. कक्षा 6 में लड़कों की संख्या</label><input type="number" name="Class6_Boys" min="0" />
+      <label>28. कक्षा 6 में लड़कियों की संख्या</label><input type="number" name="Class6_Girls" min="0" />
+      <label>29. कक्षा 7 में लड़कों की संख्या</label><input type="number" name="Class7_Boys" min="0" />
+      <label>30. कक्षा 7 में लड़कियों की संख्या</label><input type="number" name="Class7_Girls" min="0" />
+      <label>31. कक्षा 8 में लड़कों की संख्या</label><input type="number" name="Class8_Boys" min="0" />
+      <label>32. कक्षा 8 में लड़कियों की संख्या</label><input type="number" name="Class8_Girls" min="0" />
 
-      <label>30. क्या आपके द्वारा विद्यालय में डिजिटल कॉमिक्स उपयोग में ली गई?</label>
+      <label>33. क्या आपके द्वारा विद्यालय में डिजिटल कॉमिक्स उपयोग में ली गई?</label>
       <label><input type="radio" name="UsedDigitalComics" value="हाँ" /> हाँ</label>
       <label><input type="radio" name="UsedDigitalComics" value="नहीं" /> नहीं</label>
 
-      <label>31. विद्यार्थियों ने किन-किन मंचों पर प्रस्तुतीकरण किया?</label>
+      <label>34. विद्यार्थियों ने किन-किन मंचों पर प्रस्तुतीकरण किया?</label>
       <div class="checkbox-list">
         <label><input type="checkbox" name="PresentationPlatform" value="प्रार्थना सभा" /> प्रार्थना सभा</label>
         <label><input type="checkbox" name="PresentationPlatform" value="कक्षा में ही" /> कक्षा में ही</label>
@@ -170,7 +185,7 @@
         <label>अन्य: <input type="text" name="PresentationPlatform_Other" placeholder="अगर अन्य हो तो लिखें" /></label>
       </div>
 
-      <label>32. Feedback & experience</label>
+      <label>35. Feedback & experience</label>
       <textarea name="Feedback" placeholder="अपना अनुभव और फीडबैक यहाँ लिखें"></textarea>
 
       <div class="buttons">
@@ -287,4 +302,5 @@
 </html>
 
                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                              <!DOCTYPE html>
+
 
