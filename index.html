@@ -13,6 +13,8 @@
     input[type="text"], input[type="date"], input[type="tel"], select, textarea, input[type="number"] {
       width:100%; padding:8px 10px; margin-top:6px; box-sizing:border-box; border:1px solid #ccd0d6; border-radius:6px;
     }
+    /* make teacher text appear uppercase */
+    input.uppercase { text-transform:uppercase; }
     textarea { min-height:100px; }
     .row { display:flex; gap:12px; }
     .col { flex:1; }
@@ -80,21 +82,27 @@
 
       <!-- 8 -->
       <label for="teacherName">8. Name of Teacher</label>
-      <input type="text" id="teacherName" name="TeacherName" placeholder="Enter Teacher (Principal) Name" required>
+      <input type="text" id="teacherName" name="TeacherName" class="uppercase" placeholder="ENTER TEACHER (PRINCIPAL) NAME" required>
 
-      <!-- 9 -->
-      <label for="mobile">9. Mobile Number</label>
-      <input 
-      type="tel" 
-      id="mobile" 
-      name="MobileNumber" 
-      placeholder="10 digit mobile number" 
-      pattern="[0-9]{10}" 
-      maxlength="10" 
-      required 
-      />
+      <!-- 9 (added) -->
+      <label>9. Gender of Teacher</label>
+      <label class="inline"><input type="radio" name="TeacherGender" value="Male" required> Male</label>
+      <label class="inline"><input type="radio" name="TeacherGender" value="Female"> Female</label>
+
       <!-- 10 -->
-      <label>10. कक्षा जिसमे आप शिक्षण कराते हैं?</label>
+      <label for="mobile">10. Mobile Number</label>
+      <input 
+        type="tel" 
+        id="mobile" 
+        name="MobileNumber" 
+        placeholder="10 digit mobile number" 
+        pattern="[0-9]{10}" 
+        maxlength="10" 
+        required 
+      />
+
+      <!-- 11 -->
+      <label>11. कक्षा जिसमे आप शिक्षण कराते हैं?</label>
       <div>
         <label class="inline"><input type="checkbox" name="ClassTaught" value="कक्षा 6" /> कक्षा 6</label>
         <label class="inline"><input type="checkbox" name="ClassTaught" value="कक्षा 7" /> कक्षा 7</label>
@@ -103,71 +111,82 @@
         <label class="inline"><input type="checkbox" name="ClassTaught" value="कक्षा 10" /> कक्षा 10</label>
       </div>
 
-      <!-- 11–29 -->
-      <label>11. कॉमिक बुक/डिजिटल कॉमिक आधारित गतिविधियों का संचालन किया गया?</label>
+      <!-- 12 -->
+      <label>12. कॉमिक बुक/डिजिटल कॉमिक आधारित गतिविधियों का संचालन किया गया?</label>
       <label><input type="radio" name="ActivitiesConducted" value="हाँ" required /> हाँ</label>
       <label><input type="radio" name="ActivitiesConducted" value="नहीं" /> नहीं</label>
 
-      <label>12. कक्षा 6 के साथ कॉमिक बुक्स/डिजिटल कॉमिक्स पर कार्य किया गया?</label>
-      <label><input type="radio" name="Class6Worked" value="हाँ" required /> हाँ</label>
+      <!-- 13 (added) -->
+      <label>13. क्या आपने Face-to-Face प्रशिक्षण किया गया?</label>
+      <label><input type="radio" name="FaceToFaceTraining" value="हाँ" /> हाँ</label>
+      <label><input type="radio" name="FaceToFaceTraining" value="नहीं" /> नहीं</label>
+
+      <!-- 14 (added) -->
+      <label>14. क्या आपने Online course लिया गया?</label>
+      <label><input type="radio" name="OnlineCourseTaken" value="हाँ" /> हाँ</label>
+      <label><input type="radio" name="OnlineCourseTaken" value="नहीं" /> नहीं</label>
+
+      <!-- 15– rest (shifted numbers by +2) -->
+      <label>15. कक्षा 6 के साथ कॉमिक बुक्स/डिजिटल कॉमिक्स पर कार्य किया गया?</label>
+      <label><input type="radio" name="Class6Worked" value="हाँ" /> हाँ</label>
       <label><input type="radio" name="Class6Worked" value="नहीं" /> नहीं</label>
 
-      <label>13. कक्षा 7 के साथ कॉमिक बुक्स/डिजिटल कॉमिक्स पर कार्य किया गया?</label>
-      <label><input type="radio" name="Class7Worked" value="हाँ" required /> हाँ</label>
+      <label>16. कक्षा 7 के साथ कॉमिक बुक्स/डिजिटल कॉमिक्स पर कार्य किया गया?</label>
+      <label><input type="radio" name="Class7Worked" value="हाँ" /> हाँ</label>
       <label><input type="radio" name="Class7Worked" value="नहीं" /> नहीं</label>
 
-      <label>14. कक्षा 8 के साथ कॉमिक बुक्स/डिजिटल कॉमिक्स पर कार्य किया गया?</label>
-      <label><input type="radio" name="Class8Worked" value="हाँ" required /> हाँ</label>
+      <label>17. कक्षा 8 के साथ कॉमिक बुक्स/डिजिटल कॉमिक्स पर कार्य किया गया?</label>
+      <label><input type="radio" name="Class8Worked" value="हाँ" /> हाँ</label>
       <label><input type="radio" name="Class8Worked" value="नहीं" /> नहीं</label>
 
-      <label>15. "खजाने का नक्शा" पर काम किया गया?</label>
+      <label>18. "खजाने का नक्शा" पर काम किया गया?</label>
       <label><input type="radio" name="KhazaneKaNaksha" value="हाँ" /> हाँ</label>
       <label><input type="radio" name="KhazaneKaNaksha" value="नहीं" /> नहीं</label>
 
-      <label>16. "बदलीपुर के चीते" पर काम किया गया?</label>
+      <label>19. "बदलीपुर के चीते" पर काम किया गया?</label>
       <label><input type="radio" name="BadlipurKeCheete" value="हाँ" /> हाँ</label>
       <label><input type="radio" name="BadlipurKeCheete" value="नहीं" /> नहीं</label>
 
-      <label>17. "फिल्मस्टार का अपहरण" पर काम किया गया?</label>
+      <label>20. "फिल्मस्टार का अपहरण" पर काम किया गया?</label>
       <label><input type="radio" name="FilmstarApharan" value="हाँ" /> हाँ</label>
       <label><input type="radio" name="FilmstarApharan" value="नहीं" /> नहीं</label>
 
-      <label>18. "गायब हाथी" पर काम किया गया?</label>
+      <label>21. "गायब हाथी" पर काम किया गया?</label>
       <label><input type="radio" name="GayabHati" value="हाँ" /> हाँ</label>
       <label><input type="radio" name="GayabHati" value="नहीं" /> नहीं</label>
 
-      <label>19. "खतरे में बदलीपुर" पर काम किया गया?</label>
+      <label>22. "खतरे में बदलीपुर" पर काम किया गया?</label>
       <label><input type="radio" name="KhatreMeinBadlipur" value="हाँ" /> हाँ</label>
       <label><input type="radio" name="KhatreMeinBadlipur" value="नहीं" /> नहीं</label>
 
-      <label>20. "बोलती चट्टान" पर काम किया गया?</label>
+      <label>23. "बोलती चट्टान" पर काम किया गया?</label>
       <label><input type="radio" name="BoltiChattan" value="हाँ" /> हाँ</label>
       <label><input type="radio" name="BoltiChattan" value="नहीं" /> नहीं</label>
 
-      <label>21. "परीक्षा का तनाव" पर काम किया गया?</label>
+      <label>24. "परीक्षा का तनाव" पर काम किया गया?</label>
       <label><input type="radio" name="Parikshakatanaav" value="हाँ" /> हाँ</label>
       <label><input type="radio" name="Parikshakatanaav" value="नहीं" /> नहीं</label>
 
-       <label>22. "नशामुक्त बदलीपुर" पर काम किया गया?</label>
-      <label><input type="radio" name="Nashamukt Badlipur" value="हाँ" /> हाँ</label>
-      <label><input type="radio" name="Nashamukt Badlipur" value="नहीं" /> नहीं</label>
+       <label>25. "नशामुक्त बदलीपुर" पर काम किया गया?</label>
+      <label><input type="radio" name="NashamuktBadlipur" value="हाँ" /> हाँ</label>
+      <label><input type="radio" name="NashamuktBadlipur" value="नहीं" /> नहीं</label>
 
-      <label>23. "स्क्रीन की स्क्रीनिंग" पर काम किया गया?</label>
+      <label>26. "स्क्रीन की स्क्रीनिंग" पर काम किया गया?</label>
       <label><input type="radio" name="Screenkiscreening" value="हाँ" /> हाँ</label>
       <label><input type="radio" name="Screenkiscreening" value="नहीं" /> नहीं</label>
 
-      <label>24. कक्षा 6 में लड़कों की संख्या</label><input type="number" name="Class6_Boys" min="0" />
-      <label>25. कक्षा 6 में लड़कियों की संख्या</label><input type="number" name="Class6_Girls" min="0" />
-      <label>26. कक्षा 7 में लड़कों की संख्या</label><input type="number" name="Class7_Boys" min="0" />
-      <label>27. कक्षा 7 में लड़कियों की संख्या</label><input type="number" name="Class7_Girls" min="0" />
-      <label>28. कक्षा 8 में लड़कों की संख्या</label><input type="number" name="Class8_Boys" min="0" />
-      <label>29. कक्षा 8 में लड़कियों की संख्या</label><input type="number" name="Class8_Girls" min="0" />
+      <label>27. कक्षा 6 में लड़कों की संख्या</label><input type="number" name="Class6_Boys" min="0" />
+      <label>28. कक्षा 6 में लड़कियों की संख्या</label><input type="number" name="Class6_Girls" min="0" />
+      <label>29. कक्षा 7 में लड़कों की संख्या</label><input type="number" name="Class7_Boys" min="0" />
+      <label>30. कक्षा 7 में लड़कियों की संख्या</label><input type="number" name="Class7_Girls" min="0" />
+      <label>31. कक्षा 8 में लड़कों की संख्या</label><input type="number" name="Class8_Boys" min="0" />
+      <label>32. कक्षा 8 में लड़कियों की संख्या</label><input type="number" name="Class8_Girls" min="0" />
 
-      <label>30. क्या आपके द्वारा विद्यालय में डिजिटल कॉमिक्स उपयोग में ली गई?</label>
+      <label>33. क्या आपके द्वारा विद्यालय में डिजिटल कॉमिक्स उपयोग में ली गई?</label>
       <label><input type="radio" name="UsedDigitalComics" value="हाँ" /> हाँ</label>
       <label><input type="radio" name="UsedDigitalComics" value="नहीं" /> नहीं</label>
 
-      <label>31. विद्यार्थियों ने किन-किन मंचों पर प्रस्तुतीकरण किया?</label>
+      <label>34. विद्यार्थियों ने किन-किन मंचों पर प्रस्तुतीकरण किया?</label>
       <div class="checkbox-list">
         <label><input type="checkbox" name="PresentationPlatform" value="प्रार्थना सभा" /> प्रार्थना सभा</label>
         <label><input type="checkbox" name="PresentationPlatform" value="कक्षा में ही" /> कक्षा में ही</label>
@@ -177,7 +196,7 @@
         <label>अन्य: <input type="text" name="PresentationPlatform_Other" placeholder="अगर अन्य हो तो लिखें" /></label>
       </div>
 
-      <label>32. Feedback & experience</label>
+      <label>35. Feedback & experience</label>
       <textarea name="Feedback" placeholder="अपना अनुभव और फीडबैक यहाँ लिखें"></textarea>
 
       <div class="buttons">
@@ -191,14 +210,13 @@
   </div>
 
   <script>
+  // Robust cascade loader + select population (handles arrays and objects)
   let cascade = {};
 
-  // JSON load
-  fetch('https://raw.githubusercontent.com/vanisebco/Student-Data-Collection/main/cascade_data.json')
+  fetch('cascade_data.json')
     .then(r => r.json())
     .then(data => {
       cascade = data;
-      console.log("Loaded districts:", Object.keys(cascade));
       populateSelect(document.getElementById('district'), Object.keys(cascade).sort(), '-- Select District --');
     })
     .catch(err => console.error("Error loading cascade_data.json:", err));
@@ -209,7 +227,12 @@
     opt0.value = '';
     opt0.textContent = placeholder;
     selectEl.appendChild(opt0);
-    items.forEach(it => {
+    if (!items) return;
+    let list = [];
+    if (Array.isArray(items)) list = items.slice();
+    else if (typeof items === 'object') list = Object.keys(items);
+    list.sort((a,b) => a.toString().toLowerCase().localeCompare(b.toString().toLowerCase()));
+    list.forEach(it => {
       const o = document.createElement('option');
       o.value = it;
       o.textContent = it;
@@ -217,69 +240,63 @@
     });
   }
 
+  // District -> Block
   document.getElementById('district').addEventListener('change', function() {
     const b = document.getElementById('block');
     const p = document.getElementById('panchayat');
     const s = document.getElementById('school');
-    const t = document.getElementById('teacherName');
     b.innerHTML = '<option value="">-- Select Block --</option>';
     p.innerHTML = '<option value="">-- Select Panchayat --</option>';
     s.innerHTML = '<option value="">-- Select School --</option>';
-    t.innerHTML = '<option value="">-- Select Teacher --</option>';
     if (!this.value) return;
-    populateSelect(b, Object.keys(cascade[this.value] || {}).sort(), '-- Select Block --');
+    populateSelect(b, cascade[this.value], '-- Select Block --');
   });
 
+  // Block -> Panchayat
   document.getElementById('block').addEventListener('change', function() {
     const d = document.getElementById('district').value;
     const p = document.getElementById('panchayat');
     const s = document.getElementById('school');
-    const t = document.getElementById('teacherName');
     p.innerHTML = '<option value="">-- Select Panchayat --</option>';
     s.innerHTML = '<option value="">-- Select School --</option>';
-    t.innerHTML = '<option value="">-- Select Teacher --</option>';
     if (!d || !this.value) return;
-    populateSelect(p, Object.keys(cascade[d][this.value] || {}).sort(), '-- Select Panchayat --');
+    populateSelect(p, cascade[d][this.value], '-- Select Panchayat --');
   });
 
+  // Panchayat -> School (schools are arrays in JSON)
   document.getElementById('panchayat').addEventListener('change', function() {
     const d = document.getElementById('district').value;
     const b = document.getElementById('block').value;
     const s = document.getElementById('school');
-    const t = document.getElementById('teacherName');
     s.innerHTML = '<option value="">-- Select School --</option>';
-    t.innerHTML = '<option value="">-- Select Teacher --</option>';
     if (!d || !b || !this.value) return;
-    populateSelect(s, Object.keys(cascade[d][b][this.value] || {}).sort(), '-- Select School --');
+    let raw = cascade[d] && cascade[d][b] && cascade[d][b][this.value] ? cascade[d][b][this.value] : [];
+    let schoolsArray = [];
+    if (Array.isArray(raw)) schoolsArray = raw.slice();
+    else if (typeof raw === 'object') {
+      const keys = Object.keys(raw).sort((a,b)=>Number(a)-Number(b));
+      schoolsArray = keys.map(k => raw[k]);
+    }
+    // sanitize and sort
+    schoolsArray = schoolsArray.map(x => (typeof x === 'string' ? x.trim() : x)).filter(Boolean);
+    populateSelect(s, schoolsArray, '-- Select School --');
   });
 
-  document.getElementById('school').addEventListener('change', function() {
-    const d = document.getElementById('district').value;
-    const b = document.getElementById('block').value;
-    const p = document.getElementById('panchayat').value;
-    const t = document.getElementById('teacherName');
-    t.innerHTML = '<option value="">-- Select Teacher --</option>';
-    if (!d || !b || !p || !this.value) return;
-    populateSelect(t, cascade[d][b][p][this.value] || [], '-- Select Teacher --');
-  });
-  </script>
-<script>
+  // Make teacher input uppercase as user types (and also normalize on blur)
+  const teacherInput = document.getElementById('teacherName');
+  teacherInput.addEventListener('input', function(){ this.value = this.value.toUpperCase(); });
+  teacherInput.addEventListener('blur', function(){ this.value = this.value.toUpperCase().trim(); });
+
+  // form submit/reset handlers
   function formSubmitted() {
     document.getElementById("successBox").style.display = "block";
     document.getElementById("errorBox").style.display = "none";
-    setTimeout(function() {
-      document.getElementById("mainForm").reset();
-    }, 1000);
+    setTimeout(function() { document.getElementById("mainForm").reset(); }, 1000);
   }
 
-  // Remove the JavaScript submit - let the form submit naturally
   document.getElementById("submitBtn").onclick = function() {
     const form = document.getElementById("mainForm");
-    if (form.checkValidity()) {
-      form.submit();
-    } else {
-      form.reportValidity();
-    }
+    if (form.checkValidity()) { form.submit(); } else { form.reportValidity(); }
     return false;
   };
 
@@ -288,12 +305,11 @@
     document.getElementById("successBox").style.display = "none";
     document.getElementById("errorBox").style.display = "none";
   });
-</script>
+  </script>
+
 <iframe id="hidden_iframe" name="hidden_iframe" style="display:none;"></iframe>
 </body>
 </html>
-
-
 
 
 
